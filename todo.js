@@ -1,5 +1,6 @@
 import fs from "fs";
-import chalk from "chalk"; 
+import chalk from "chalk";
+
 const FILE_PATH = "todo.json";
 
 async function readTodos() {
@@ -18,6 +19,7 @@ async function readTodos() {
   }
 }
 
+// Save data array down to file
 async function saveTodos(todos) {
   try {
     await fs.promises.writeFile(FILE_PATH, JSON.stringify(todos, null, 2), "utf8");
@@ -41,12 +43,15 @@ async function main() {
       }
       
       const now = new Date();
-      const day = String(now.getDate()).padStart(2, "0");
-      const month = String(now.getMonth() + 1).padStart(2, "0");
-      const year = now.getFullYear();
-      const dateStr = `${day}/${month}/${year}`;
+      const dateStr = `${String(now.getDate()).padStart(2, "0")}/${String(now.getMonth() + 1).padStart(2, "0")}/${now.getFullYear()}`;
 
-      const newTodo = {id: todos.length > 0 ? todos[todos.length - 1].id + 1 : 1,  text: target, done: false, createdAt: dateStr };
+      const newTodo = { 
+        id: todos.length > 0 ? todos[todos.length - 1].id + 1 : 1, 
+        text: target, 
+        done: false, 
+        createdAt: dateStr 
+      };
+      
       todos.push(newTodo);
       await saveTodos(todos);
       console.log(chalk.green(`✓ Task added: ${target}`));
@@ -60,7 +65,7 @@ async function main() {
 
       todos.forEach((todo) => {
         if (todo.done) {
-          console.log(chalk.green(`${itemNumber}. [x] ${todo.text} (done)`));
+          console.log(chalk.green(`${todo.id}. [x] ${todo.text} (done)`));
         } else {
           console.log(`${todo.id}. [ ] ${chalk.blue.bold(todo.text)} (${chalk.yellow('added: ' + todo.createdAt)})`);
         }
@@ -68,9 +73,9 @@ async function main() {
       break;
 
     case "done":
-      const indexToMark = parseInt(target, 10) - 1;
-      const todoToMark = todos.find(t => t.id === idToMark); 
-
+      const idToMark = parseInt(target, 10);
+      const todoToMark = todos.find(t => t.id === idToMark);
+      
       if (!todoToMark) {
         console.log(chalk.red("❌ Error: Task ID not found."));
         return;
@@ -78,12 +83,13 @@ async function main() {
 
       todoToMark.done = true;
       await saveTodos(todos);
-      console.log(chalk.cyan(`✓ Task ${target} marked as done.`));
+      console.log(chalk.cyan(`✓ Task ${idToMark} marked as done.`));
       break;
 
     case "delete":
       const idToDelete = parseInt(target, 10);
       const initialLength = todos.length;
+      
       const filteredTodos = todos.filter(todo => todo.id !== idToDelete);
 
       if (filteredTodos.length === initialLength) {
