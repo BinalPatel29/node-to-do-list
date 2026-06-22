@@ -40,17 +40,14 @@ async function main() {
         console.log(chalk.red("❌ Error: Please specify a task description to add."));
         return;
       }
-      
       const now = new Date();
       const dateStr = `${String(now.getDate()).padStart(2, "0")}/${String(now.getMonth() + 1).padStart(2, "0")}/${now.getFullYear()}`;
-
       const newTodo = { 
         id: todos.length > 0 ? todos[todos.length - 1].id + 1 : 1, 
         text: target, 
         done: false, 
         createdAt: dateStr 
       };
-      
       todos.push(newTodo);
       await saveTodos(todos);
       console.log(chalk.green(`✓ Task added: ${target}`));
@@ -61,7 +58,6 @@ async function main() {
         console.log(chalk.yellow("Your todo list is currently empty!"));
         return;
       }
-
       todos.forEach((todo) => {
         if (todo.done) {
           console.log(chalk.green(`${todo.id}. [x] ${todo.text} (done)`));
@@ -74,12 +70,10 @@ async function main() {
     case "done":
       const idToMark = parseInt(target, 10);
       const todoToMark = todos.find(t => t.id === idToMark);
-      
       if (!todoToMark) {
         console.log(chalk.red("❌ Error: Task ID not found."));
         return;
       }
-
       todoToMark.done = true;
       await saveTodos(todos);
       console.log(chalk.cyan(`✓ Task ${idToMark} marked as done.`));
@@ -87,15 +81,12 @@ async function main() {
 
     case "delete":
       const idToDelete = parseInt(target, 10);
-      const initialLength = todos.length;
-      
+      const initialLength = todos.length; 
       const filteredTodos = todos.filter(todo => todo.id !== idToDelete);
-
       if (filteredTodos.length === initialLength) {
         console.log(chalk.red("❌ Error: Task ID not found."));
         return;
       }
-
       await saveTodos(filteredTodos);
       console.log(chalk.red(`✓ Task ${idToDelete} was deleted successfully.`));
       break;
@@ -109,5 +100,4 @@ async function main() {
       break;
   }
 }
-
 main();
