@@ -1,4 +1,4 @@
-**📝 CLI To-Do Application**
+# 📝 CLI To-Do Application
 
 ## Features
 * **💾 Local Data Persistence:** All your tasks are safely saved inside a local `todo.json` file.
