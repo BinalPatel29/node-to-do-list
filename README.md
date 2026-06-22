@@ -1,10 +1,10 @@
 **📝 CLI To-Do Application**
 
 ## Features
-**💾 Local Data Persistence:** All your tasks are safely saved inside a local `todo.json` file.
-**🎨 Dynamic Color UI:** Beautifully color-coded status reports in your terminal powered by `chalk`.
-**⏰ Smart Date Stamping:** Every task tracks the exact calendar day it was created.
-**🛡️ Robust Error Handling:** Gracefully handles missing files, invalid inputs, or incorrect task IDs.
+* **💾 Local Data Persistence:** All your tasks are safely saved inside a local `todo.json` file.
+* **🎨 Dynamic Color UI:** Beautifully color-coded status reports in your terminal powered by `chalk`.
+* **⏰ Smart Date Stamping:** Every task tracks the exact calendar day it was created.
+* **🛡️ Robust Error Handling:** Gracefully handles missing files, invalid inputs, or incorrect task IDs.
 
 ## Tech Stack & Requirements
 **Runtime:** [Node.js](https://nodejs.org) (v16.0.0 or higher recommended)
